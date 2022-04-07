@@ -27,7 +27,20 @@ class EquipementController extends AbstractController
         return $this->render('equipement/index.html.twig', [
             'equipements' => $equipements,
         ]);
+    }/**
+     * @Route("/back", name="app_equipement_index_back", methods={"GET"})
+     */
+    public function indexback(EntityManagerInterface $entityManager): Response
+    {
+        $equipements = $entityManager
+            ->getRepository(Equipement::class)
+            ->findAll();
+
+        return $this->render('equipement/back.html.twig', [
+            'equipements' => $equipements,
+        ]);
     }
+
 
     /**
      * @Route("/new", name="app_equipement_new", methods={"GET", "POST"})
@@ -93,4 +106,5 @@ class EquipementController extends AbstractController
 
         return $this->redirectToRoute('app_equipement_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
