@@ -27,6 +27,18 @@ class CommandeController extends AbstractController
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandes,
         ]);
+    }/**
+     * @Route("/back", name="app_commande_index_back", methods={"GET"})
+     */
+    public function indexback(EntityManagerInterface $entityManager): Response
+    {
+        $commandes = $entityManager
+            ->getRepository(Commande::class)
+            ->findAll();
+
+        return $this->render('commande/back.html.twig', [
+            'commandes' => $commandes,
+        ]);
     }
     /**
      * @Route("/new", name="app_commande_new", methods={"GET", "POST"})

@@ -1,13 +1,53 @@
 {% extends 'baseback.html.twig' %}
 {% block content %}
+    <style>.modal-content iframe{
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+    <script>$(document).ready(function(){
+            /* Get iframe src attribute value i.e. YouTube video url
+            and store it in a variable */
+            var url = $("#videoContainer").attr('src');
 
+            /* Assign empty url value to the iframe src attribute when
+            modal hide, which stop the video playing */
+            $("#myModal").on('hide.bs.modal', function(){
+                $("#videoContainer").attr('src', '');
+            });
 
+            /* Assign the initially stored url back to the iframe src
+            attribute when modal is displayed again */
+            $("#myModal").on('show.bs.modal', function(){
+                $("#videoContainer").attr('src', url);
+            });
+        });</script>
+    <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog ">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <iframe id="videoContainer" width="800" height="685" src="{{ path('app_equipement_new') }}" frameborder="0" allowfullscreen></iframe>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--ff-->
     <div class="card">
         <div class="card-header">
             <h1>Equipement index</h1>
-            <a href="{{ path('app_equipement_new') }}" class="btn btn-app bg-success mt-3">
+
+            <a  data-toggle="modal" data-target="#myModal" href="{{ path('app_equipement_new') }}" class="btn btn-app bg-success mt-3">
                 <i  class="fas fa-plus"></i>Ajouter
             </a>
             <div class="card-tools">

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,21 +31,36 @@ class Commande
 
     /**
      * @var \DateTime
+     * @Assert\NotBlank(message="ce champs est obligatoire")
      *
-     * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\Date(message="entrer une date valide")
+     * Assert\GreaterThanOrEqual("today")
+     * @ORM\Column(name="date", type="date", nullable=false, options={"default": "today"})
      */
     private $date;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "l'adresse doit avoir {{ limit }}  caractère au minimum",
+     *      maxMessage = "l'adresse doit avoir {{ limit }}  caractère au maximum"
+     * )
      * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
     private $adresse;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "l'adresse doit avoir {{ limit }}  caractère au minimum",
+     *      maxMessage = "l'adresse doit avoir {{ limit }}  caractère au maximum"
+     * )
      * @ORM\Column(name="reference", type="string", length=255, nullable=false)
      */
     private $reference;

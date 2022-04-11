@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Equipement
@@ -23,42 +24,68 @@ class Equipement
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "le nom doit avoir {{ limit }} au caractère minimum",
+     *      maxMessage = "le nom doit avoir {{ limit }} au caractère maximum"
+     * )
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "la description doit avoir {{ limit }}  caractère au minimum",
+     *      maxMessage = "la description doit avoir {{ limit }}  caractère au maximum"
+     * )
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="ce champs est obligatoire")
      * @ORM\Column(name="photo", type="string", length=255, nullable=false)
      */
     private $photo;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "la marque doit avoir {{ limit }}  caractère au minimum",
+     *      maxMessage = "la marque doit avoir {{ limit }}  caractère au maximum"
+     * )
      * @ORM\Column(name="marque", type="string", length=255, nullable=false)
      */
     private $marque;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "la categorie doit avoir {{ limit }}  caractère au minimum",
+     *      maxMessage = "la categorie doit avoir {{ limit }}  caractère au maximum"
+     * )
      * @ORM\Column(name="categorie", type="string", length=255, nullable=false)
      */
     private $categorie;
 
     /**
      * @var float
-     *
+     * @Assert\Type(message="Entrez un prix valide", type="float")
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\GreaterThanOrEqual(message="le prix doit être supérieure a zéro!", value = 0)
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
     private $prix;

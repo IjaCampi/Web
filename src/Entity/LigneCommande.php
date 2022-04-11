@@ -23,7 +23,9 @@ class LigneCommande
 
     /**
      * @var int
-     *
+     * @Assert\Type(message="Entrez quantite valide", type="integer")
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\GreaterThanOrEqual(message="la quantite doit être supérieure a zéro!", value = 0)
      * @ORM\Column(name="quantite", type="integer", nullable=false)
      */
     private $quantite;
