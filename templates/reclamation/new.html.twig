@@ -1,0 +1,30 @@
+{% extends 'front.html.twig' %}
+
+{% block title %} Reclamation_Vous {% endblock %}
+
+{% block body %}
+
+    <div class="col-lg-8">
+        {{ form_start(form, { 'attr': {'class': 'form-contact contact_form'} })  }}
+         <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        Description :
+                        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ form_widget(form.file, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.file) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Enregistrer" class="btn btn-success" formnovalidate />
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
