@@ -1,0 +1,47 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Hebergement index{% endblock %}
+
+{% block content %}
+    <h1>Hebergement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdH</th>
+                <th>Name</th>
+                <th>Ville</th>
+                <th>Categorie</th>
+                <th>Capacite</th>
+                <th>Disponibilite</th>
+                <th>Prix</th>
+                <th>IdUser</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hebergement in hebergements %}
+            <tr>
+                <td>{{ hebergement.idH }}</td>
+                <td>{{ hebergement.name }}</td>
+                <td>{{ hebergement.ville }}</td>
+                <td>{{ hebergement.categorie }}</td>
+                <td>{{ hebergement.capacite }}</td>
+                <td>{{ hebergement.disponibilite ? 'Yes' : 'No' }}</td>
+                <td>{{ hebergement.prix }}</td>
+                <td>{{ hebergement.idUser }}</td>
+                <td>
+                    <a href="{{ path('app_hebergement_show', {'idH': hebergement.idH}) }}">show</a>
+                    <a href="{{ path('app_hebergement_edit', {'idH': hebergement.idH}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_hebergement_new') }}">Create new</a>
+{% endblock %}

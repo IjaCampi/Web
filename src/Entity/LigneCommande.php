@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * LigneCommande
+ *
+ * @ORM\Table(name="ligne_commande", indexes={@ORM\Index(name="id_commande", columns={"id_commande"}), @ORM\Index(name="id_equipement", columns={"id_equipement"})})
+ * @ORM\Entity
+ */
+class LigneCommande
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="quantite", type="integer", nullable=false)
+     */
+    private $quantite;
+
+    /**
+     * @var \Commande
+     *
+     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_commande", referencedColumnName="id")
+     * })
+     */
+    private $idCommande;
+
+    /**
+     * @var \Equipement
+     *
+     * @ORM\ManyToOne(targetEntity="Equipement")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_equipement", referencedColumnName="id")
+     * })
+     */
+    private $idEquipement;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function getIdCommande(): ?Commande
+    {
+        return $this->idCommande;
+    }
+
+    public function setIdCommande(?Commande $idCommande): self
+    {
+        $this->idCommande = $idCommande;
+
+        return $this;
+    }
+
+    public function getIdEquipement(): ?Equipement
+    {
+        return $this->idEquipement;
+    }
+
+    public function setIdEquipement(?Equipement $idEquipement): self
+    {
+        $this->idEquipement = $idEquipement;
+
+        return $this;
+    }
+
+
+}
