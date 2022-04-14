@@ -37,7 +37,7 @@
                 <div class="modal-content ">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+
                     </div>
                     <div class="modal-body overflow-auto">
                         <iframe id="videoContainer" width="800" height="685" src="{{ path('app_commande_new') }}" frameborder="0" allowfullscreen></iframe>
@@ -67,6 +67,7 @@
             <th>Date</th>
             <th>Adresse</th>
             <th>Reference</th>
+            <th>utilisateur</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -78,6 +79,7 @@
                 <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.adresse }}</td>
                 <td>{{ commande.reference }}</td>
+                <td>{{ commande.idUtilisateur }}</td>
                 <td class="project-actions text-left">
                     <a class="btn btn-primary btn-sm" href="{{ path('app_commande_show', {'id': commande.id}) }}">
                         <i class="fas fa-folder">
@@ -104,7 +106,7 @@
         </tbody>
     </table>
     </div>
-    <a href="{{ path('app_commande_new') }}">Create new</a>
+    <a hidden href="{{ path('app_commande_new') }}">Create new</a>
 
     </div>
 {% endblock %}

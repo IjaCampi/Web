@@ -20,7 +20,9 @@ class Utilisateurs
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idUser;
-
+    public function __toString() {
+        return strval($this->idUser);
+    }
     /**
      * @var string
      *
@@ -73,7 +75,7 @@ class Utilisateurs
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", length=0, nullable=false)
+     * @ORM\Column(name="role", type="string", length=255, nullable=false)
      */
     private $role;
 

@@ -24,7 +24,9 @@ class Commande
 
     /**
      * @var float
-     *
+     * @Assert\Type(message="Entrez un prix valide", type="float")
+     * @Assert\NotBlank(message="ce champs est obligatoire")
+     * @Assert\GreaterThanOrEqual(message="le prix doit être supérieure a zéro!", value = 0)
      * @ORM\Column(name="montant", type="float", precision=10, scale=0, nullable=false)
      */
     private $montant;
@@ -32,10 +34,8 @@ class Commande
     /**
      * @var \DateTime
      * @Assert\NotBlank(message="ce champs est obligatoire")
-     *
-     * @Assert\Date(message="entrer une date valide")
-     * Assert\GreaterThanOrEqual("today")
-     * @ORM\Column(name="date", type="date", nullable=false, options={"default": "today"})
+     *Assert\GreaterThanOrEqual("today")
+     * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;
 

@@ -4,6 +4,14 @@
             margin: 0 auto;
             display: block;
         }
+        .modal-dialog{
+            position: relative;
+            display: table; /* This is important */
+            overflow-y: auto;
+            overflow-x: auto;
+            width: auto;
+            min-width: 300px;
+        }
     </style>
     <script>$(document).ready(function(){
             /* Get iframe src attribute value i.e. YouTube video url
@@ -29,7 +37,6 @@
                 <div class="modal-content ">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
                     </div>
                     <div class="modal-body">
                         <iframe id="videoContainer" width="800" height="685" src="{{ path('app_equipement_new') }}" frameborder="0" allowfullscreen></iframe>
@@ -87,7 +94,7 @@
                         <td>{{ equipement.prix }}</td>
 
                         <td class="project-actions text-left">
-                            <a class="btn btn-primary btn-sm" href="{{ path('app_equipement_show', {'id': equipement.id}) }}">
+                            <a class="btn btn-primary btn-sm" href="{{ path('app_equipement_show', {'id': equipement.id}) }}" >
                                 <i class="fas fa-folder">
                                 </i>
                                 View
