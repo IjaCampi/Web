@@ -1,0 +1,43 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}ParticipementEvent index{% endblock %}
+
+{% block body %}
+    <h1>ParticipementEvent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>number of Participement</th>
+
+                <th>Participants</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for participement_event in participement_events %}
+        {% for evenement in evenements %}
+            {% for utilisateurs in utilisateurs %}
+
+                <tr>
+                    <td>{{ evenement.nomEvent }}</td>
+                <td>{{ participement_event.nbrParticipement }}</td>
+                <td>{{ utilisateurs.prenom }}</td>
+                <td>
+                    <a href="{{ path('app_participement_event_show', {'idParticipement': participement_event.idParticipement}) }}">show</a>
+
+                </td>
+            </tr>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

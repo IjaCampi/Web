@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Hebergement
+ *
+ * @ORM\Table(name="hebergement")
+ * @ORM\Entity
+ */
+class Hebergement
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_h", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idH;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     */
+    private $name;
+    public function __toString() :string {
+        return $this->name;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=20, nullable=false)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="categorie", type="string", length=20, nullable=false)
+     */
+    private $categorie;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="capacite", type="integer", nullable=false)
+     */
+    private $capacite;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="disponibilite", type="integer", nullable=false)
+     */
+    private $disponibilite;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="prix", type="integer", nullable=false)
+     */
+    private $prix;
+
+    public function getIdH(): ?int
+    {
+        return $this->idH;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getCapacite(): ?int
+    {
+        return $this->capacite;
+    }
+
+    public function setCapacite(int $capacite): self
+    {
+        $this->capacite = $capacite;
+
+        return $this;
+    }
+
+    public function getDisponibilite(): ?int
+    {
+        return $this->disponibilite;
+    }
+
+    public function setDisponibilite(int $disponibilite): self
+    {
+        $this->disponibilite = $disponibilite;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+
+}

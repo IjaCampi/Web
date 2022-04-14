@@ -1,0 +1,20 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Modifier un  Evenement{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+    <h1>Edit Evenement</h1>
+    {{ form_widget(form)}}
+
+
+    <div >{{ include('evenement/_form.html.twig', {'button_label': 'Update'}) }}</div>
+
+    <a href="{{ path('app_evenement_index') }}"><button style="display: inline-block" data-bs-dismiss="modal" type="submit"
+                                                        class="btn btn-primary">Back to list</button></a>
+
+
+    <div style="display: inline-block">{{ include('evenement/_delete_form.html.twig') }}</div>
+
+{% endblock %}

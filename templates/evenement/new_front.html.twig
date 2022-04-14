@@ -1,0 +1,16 @@
+{% extends 'base-front-index.html.twig' %}
+
+
+{% block title %}Create Event{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+    <h1>Create new Evenement</h1>
+    {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+
+    {{ form_widget(form)}}
+
+
+    <button class="btn btn-primary">{{ button_label|default('Create') }}</button>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'baseback.html.twig' %}
+
+
+{% block title %}Create Event{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+    <h1>Create new Evenement</h1>
+    {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+{{ form_widget(form)}}
+
+    <br><a href="{{ path('app_evenement_index') }}"><button data-bs-dismiss="modal" type="submit"
+                                                        class="btn btn-primary">Back to list</button></a>
+    <button class="btn btn-primary">{{ button_label|default('Create') }}</button>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base-front-index.html.twig' %}
+
+{% block title %}les Evenements {% endblock %}
+
+{% block body %}
+    <h1>Les Evenements</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th>Name Event</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Number of Reservation</th>
+            <th>Price</th>
+            <th>Activities</th>
+            <th>Booking</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenement %}
+            <tr>
+
+                <td>{{ evenement.nomEvent }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{{ evenement.dateDebut }}</td>
+                <td>{{ evenement.dateFin }}</td>
+                <td>{{ evenement.nbrReservation }}</td>
+                <td>{{ evenement.prix }}</td>
+                <td>{{ evenement.activite }}</td>
+                <td>
+
+                    <a href="{{ path('app_participement_event_new', {'idEvent': evenement.idEvent}) }}">Book</a>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

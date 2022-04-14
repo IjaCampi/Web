@@ -1,0 +1,37 @@
+{% extends 'base-front-index.html.twig' %}
+
+{% block title %}New Participement Event{% endblock %}
+
+{% block body %}
+
+
+    <h1>Create new Participement Event</h1>
+    {{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <table>
+                <tr>
+
+                    <td> {{form_widget(form.nbrParticipement)}} </td>
+                    <td> {{form_errors(form.nbrParticipement)}} </td>
+                </tr>
+                <tr>
+
+                    <td> {{form_widget(form.idUser)}} </td>
+                    <td> {{form_errors(form.idUser)}} </td>
+                </tr>
+                </tr>
+                <tr>
+
+                    <td> {{form_widget(form.idEvent)}} </td>
+                    <td> {{form_errors(form.idEvent)}} </td>
+                </tr>
+                </tr>
+            </table>
+        </div>
+
+        <button class="btn">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+
+    <a href="{{ path('app_participement_event_index') }}">back to list</a>
+{% endblock %}
