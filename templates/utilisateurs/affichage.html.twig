@@ -1,0 +1,56 @@
+{{ block("css", "base.html.twig") }}
+
+
+{% block body %}
+<br>
+<h2 style="color: steelblue; text-align: center"> Gestion utilisateurs</h1>
+<br>
+<br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>prenom</th>
+                <th>DateNaissance</th>
+                <th>Adresse</th>
+                <th> numTel</th>
+                <th> login</th>
+                <th> role</th>
+                <th> actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                
+                <td>{{ utilisateur.Nom }}</td>
+                <td>{{ utilisateur.Prenom }}</td>
+                <td>{{ utilisateur.DateNaissance }}</td>
+                <td>{{ utilisateur.Adresse }}</td>
+                <td>{{ utilisateur.numTel }}</td>
+                   <td>{{ utilisateur.login }}</td>
+                                      <td>{{ utilisateur.role }}</td>
+
+
+
+                <td>
+
+                    <a href="{{ path('app_utilisateurs_show', {'idUser': utilisateur.idUser}) }}" class="btn btn-secondary">Afficher</a>
+                    <form method="post" action="{{ path('app_utilisateurs_delete', {'idUser': utilisateur.idUser}) }}" style="display: inline-block" onsubmit="return confirm('Vous Êtes sûr de Supprimer cet utilisateur ');">
+                       <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.idUser) }}">
+                       <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+
+
+{% endblock %}

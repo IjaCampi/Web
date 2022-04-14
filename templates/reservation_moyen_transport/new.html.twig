@@ -1,0 +1,20 @@
+{{ block("css", "baseback.html.twig") }}
+
+
+{% block body %}
+
+<div class="container mt-4">
+
+
+<br>
+<h2 style="color: steelblue; text-align: center"> Réserver Maintenant</h1>
+<br>
+<br>
+<br>
+
+{{ include('reservation_moyen_transport/_form.html.twig' , {form: form, button: 'Réserver'}) }}
+
+</div>
+   
+
+{% endblock %}
