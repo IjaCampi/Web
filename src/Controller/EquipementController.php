@@ -108,3 +108,4 @@ class EquipementController extends AbstractController
     }
 
 }
+

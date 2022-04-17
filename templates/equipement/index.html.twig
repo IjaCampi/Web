@@ -1,38 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseFront.html.twig' %}
 
 {% block title %}Equipement index{% endblock %}
 
 {% block body %}
-    <h1>Equipement index</h1>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <h1>Equipement</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Photo</th>
-                <th>Marque</th>
-                <th>Categorie</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+
         {% for equipement in equipements %}
-            <tr>
-                <td>{{ equipement.id }}</td>
-                <td>{{ equipement.nom }}</td>
-                <td>{{ equipement.description }}</td>
-                <td>{{ equipement.photo }}</td>
-                <td>{{ equipement.marque }}</td>
-                <td>{{ equipement.categorie }}</td>
-                <td>{{ equipement.prix }}</td>
-                <td>
-                    <a href="{{ path('app_equipement_show', {'id': equipement.id}) }}">show</a>
-                    <a href="{{ path('app_equipement_edit', {'id': equipement.id}) }}">edit</a>
-                </td>
-            </tr>
+            <!-- small box -->
+        <section class="conte   nt">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ equipement.nom }}</h3>
+
+                    <p><equipement class="prix">{{ equipement.prix }}</equipement></p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ path('app_equipement_show', {'id': equipement.id}) }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            </div>
+                </div>
+            </div>
+        </section>
+
         {% else %}
             <tr>
                 <td colspan="8">no records found</td>
@@ -41,5 +41,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_equipement_new') }}">Create new</a>
 {% endblock %}
