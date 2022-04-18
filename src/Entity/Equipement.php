@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Equipement
  *
  * @ORM\Table(name="equipement", indexes={@ORM\Index(name="id_utilisateur", columns={"id_utilisateur"}), @ORM\Index(name="id_evenement", columns={"id_evenement"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\EquipementRepository")
  */
 class Equipement
 {
@@ -21,7 +21,9 @@ class Equipement
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
+    public function __toString() {
+        return strval($this->id);
+    }
     /**
      * @var string
      * @Assert\NotBlank(message="ce champs est obligatoire")

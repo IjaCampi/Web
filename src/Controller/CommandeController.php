@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,7 +28,9 @@ class CommandeController extends AbstractController
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandes,
         ]);
-    }/**
+    }
+
+    /**
      * @Route("/back", name="app_commande_index_back", methods={"GET"})
      */
     public function indexback(EntityManagerInterface $entityManager): Response
@@ -40,6 +43,7 @@ class CommandeController extends AbstractController
             'commandes' => $commandes,
         ]);
     }
+
     /**
      * @Route("/new", name="app_commande_new", methods={"GET", "POST"})
      */
@@ -97,11 +101,25 @@ class CommandeController extends AbstractController
      */
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $commande->getId(), $request->request->get('_token'))) {
             $entityManager->remove($commande);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="app_commande_del")
+     */
+    public function del(EntityManagerInterface $entityManager, $id): Response
+    {
+        $commande = $entityManager
+            ->getRepository(Commande::class)
+            ->find($id);
+
+        $entityManager->remove($commande);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_commande_index_back', [], Response::HTTP_SEE_OTHER);
     }
 }

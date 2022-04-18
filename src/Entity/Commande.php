@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Commande
  *
  * @ORM\Table(name="commande", indexes={@ORM\Index(name="id_utilisateur", columns={"id_utilisateur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
  */
 class Commande
 {
@@ -21,6 +21,9 @@ class Commande
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+    public function __toString() {
+        return strval($this->id);
+    }
 
     /**
      * @var float

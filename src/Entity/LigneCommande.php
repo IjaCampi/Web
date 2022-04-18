@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * LigneCommande
  *
  * @ORM\Table(name="ligne_commande", indexes={@ORM\Index(name="id_commande", columns={"id_commande"}), @ORM\Index(name="id_equipement", columns={"id_equipement"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LigneCommandeRepository")
  */
 class LigneCommande
 {
@@ -46,7 +46,7 @@ class LigneCommande
      *
      * @ORM\ManyToOne(targetEntity="Commande")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_commande", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_commande", referencedColumnName="id",onDelete="CASCADE")
      * })
      */
     private $idCommande;

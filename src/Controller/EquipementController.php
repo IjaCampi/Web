@@ -106,6 +106,18 @@ class EquipementController extends AbstractController
 
         return $this->redirectToRoute('app_equipement_index', [], Response::HTTP_SEE_OTHER);
     }
+    /**
+     * @Route("/{id}/delete", name="app_equipement_del")
+     */
+    public function del(EntityManagerInterface $entityManager, $id): Response
+    {
+        $equipements = $entityManager
+            ->getRepository(Equipement::class)
+            ->find($id);
 
+        $entityManager->remove($equipements);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_equipement_index_back', [], Response::HTTP_SEE_OTHER);
+    }
 }
 

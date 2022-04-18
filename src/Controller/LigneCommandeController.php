@@ -8,8 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/ligne/commande")
  */
@@ -62,6 +62,19 @@ class LigneCommandeController extends AbstractController
     }
 
     /**
+     * @Route("/get/{id}", name="app_lc_show_commande")
+     */
+    public function showbycommande($id): Response
+    {
+
+        $ligneCommande = $this->getDoctrine()->getRepository(LigneCommande::class)->findByExampleField($id);
+
+        return $this->render('ligne_commande/index.html.twig', [
+            'ligne_commandes' => $ligneCommande,
+        ]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="app_ligne_commande_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, LigneCommande $ligneCommande, EntityManagerInterface $entityManager): Response
@@ -86,7 +99,7 @@ class LigneCommandeController extends AbstractController
      */
     public function delete(Request $request, LigneCommande $ligneCommande, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$ligneCommande->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $ligneCommande->getId(), $request->request->get('_token'))) {
             $entityManager->remove($ligneCommande);
             $entityManager->flush();
         }

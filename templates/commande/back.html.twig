@@ -67,6 +67,7 @@
             <th>Date</th>
             <th>Adresse</th>
             <th>Reference</th>
+            <th>Ligne Commande</th>
             <th>utilisateur</th>
             <th>actions</th>
         </tr>
@@ -79,19 +80,21 @@
                 <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.adresse }}</td>
                 <td>{{ commande.reference }}</td>
-                <td>{{ commande.idUtilisateur }}</td>
                 <td class="project-actions text-left">
-                    <a class="btn btn-primary btn-sm" href="{{ path('app_commande_show', {'id': commande.id}) }}">
+                    <a class="btn btn-primary btn-sm" href="{{ path('app_lc_show_commande', {'id': commande.id}) }}">
                         <i class="fas fa-folder">
                         </i>
                         View
                     </a>
+                <td>{{ commande.idUtilisateur }}</td>
+                <td class="project-actions text-left">
+
                     <a class="btn btn-info btn-sm" href="{{ path('app_commande_edit', {'id': commande.id}) }}">
                         <i class="fas fa-pencil-alt">
                         </i>
                         Edit
                     </a>
-                    <a class="btn btn-danger btn-sm" href="{{ path('app_commande_delete',{'id':commande.id}) }}">
+                    <a class="btn btn-danger btn-sm" href="{{ path('app_commande_del',{'id':commande.id}) }}">
                         <i class="fas fa-trash">
                         </i>
                         Delete
