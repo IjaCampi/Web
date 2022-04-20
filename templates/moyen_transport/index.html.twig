@@ -1,0 +1,66 @@
+{% extends 'baseback.html.twig' %}
+
+
+
+{% block body %}
+<br>
+<h4 style="font-size: 2.4rem; font-weight: 100px; color: steelblue; text-align: center"> Gestion Transport</h4>
+<br>
+<br>
+
+
+
+    <div class="card-body table-responsive p-0">
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Matricule</th>
+                      <th>Marque</th>
+                      <th>Nombre de Places</th>
+                      <th>Frais</th>
+                      <th>Utilisateur</th>
+                     <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for moyen_transport in moyen_transports %}
+                 <tr>
+                
+                <td>{{ moyen_transport.type }}</td>
+                <td>{{ moyen_transport.matricule }}</td>
+                <td>{{ moyen_transport.marque }}</td>
+                <td>{{ moyen_transport.nbrPlace }}</td>
+                <td>{{ moyen_transport.frais }}</td>
+                <td>{{ moyen_transport.idUser }}</td>
+                <td>
+                    <a href="{{ path('app_moyen_transport_show', {'idTransport': moyen_transport.idTransport}) }}" class="btn btn-secondary" >Afficher</a>
+                    <a href="{{ path('app_moyen_transport_edit', {'idTransport': moyen_transport.idTransport}) }}" class="btn btn-secondary">Modifier</a>
+                    <form method="post" action="{{ path('app_moyen_transport_delete', {'idTransport': moyen_transport.idTransport}) }}" style="display: inline-block" onsubmit="return confirm('Vous Êtes sûr de Supprimer ce Moyen Transport ');">
+                       <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ moyen_transport.idTransport) }}">
+                       <button class="btn btn-danger">Delete</button>
+                    </form>
+                    
+                </td>
+                 </tr>
+               {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+                {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+   
+    </table>
+    
+    <div class="text-right">
+    <a href="{{ path('app_moyen_transport_new') }}" class="btn btn-primary">Ajouter Moyen Transport</a>
+    </div>
+
+    <div class="text-right">
+    <a href="{{ path('app_reservation_moyen_transport_calendar') }}" class="btn btn-primary">Calendrier</a>
+    </div>
+    
+{% endblock %}
