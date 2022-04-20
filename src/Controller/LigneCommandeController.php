@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Equipement;
 use App\Entity\LigneCommande;
 use App\Form\LigneCommandeType;
+use App\Repository\EquipementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/ligne/commande")
@@ -18,7 +21,7 @@ class LigneCommandeController extends AbstractController
     /**
      * @Route("/", name="app_ligne_commande_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function indexmain(EntityManagerInterface $entityManager): Response
     {
         $ligneCommandes = $entityManager
             ->getRepository(LigneCommande::class)
@@ -28,6 +31,7 @@ class LigneCommandeController extends AbstractController
             'ligne_commandes' => $ligneCommandes,
         ]);
     }
+
 
     /**
      * @Route("/new", name="app_ligne_commande_new", methods={"GET", "POST"})
@@ -106,4 +110,103 @@ class LigneCommandeController extends AbstractController
 
         return $this->redirectToRoute('app_ligne_commande_index', [], Response::HTTP_SEE_OTHER);
     }
+/*
+    /**
+     * @Route("/", name="index")
+     */
+/*
+    public function index(SessionInterface $session, EquipementRepository $productsRepository)
+    {
+        $panier = $session->get("panier", []);
+
+        // On "fabrique" les données
+        $dataPanier = [];
+        $total = 0;
+
+        foreach($panier as $id => $quantite){
+            $product = $productsRepository->find($id);
+            $dataPanier[] = [
+                "produit" => $product,
+                "quantite" => $quantite
+            ];
+            $total += $product->getPrice() * $quantite;
+        }
+
+        return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
+    }
+
+    /**
+     * @Route("/add/{id}", name="add")
+     */
+  /*  public function add(Equipement $product, SessionInterface $session)
+    {
+        // On récupère le panier actuel
+        $panier = $session->get("panier", []);
+        $id = $product->getId();
+
+        if(!empty($panier[$id])){
+            $panier[$id]++;
+        }else{
+            $panier[$id] = 1;
+        }
+
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
+
+        return $this->redirectToRoute("cart_index");
+    }
+
+    /**
+     * @Route("/remove/{id}", name="remove")
+     */
+  /*  public function remove(Equipement $product, SessionInterface $session)
+    {
+        // On récupère le panier actuel
+        $panier = $session->get("panier", []);
+        $id = $product->getId();
+
+        if(!empty($panier[$id])){
+            if($panier[$id] > 1){
+                $panier[$id]--;
+            }else{
+                unset($panier[$id]);
+            }
+        }
+
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
+
+        return $this->redirectToRoute("cart_index");
+    }
+
+    /**
+     * @Route("/supprimer/{id}", name="delete")
+     */
+  /*  public function supprimer(Products $product, SessionInterface $session)
+    {
+        // On récupère le panier actuel
+        $panier = $session->get("panier", []);
+        $id = $product->getId();
+
+        if(!empty($panier[$id])){
+            unset($panier[$id]);
+        }
+
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
+
+        return $this->redirectToRoute("cart_index");
+    }
+
+    /**
+     * @Route("/supprimer", name="delete_all")
+     */
+   /* public function suppall(SessionInterface $session)
+    {
+        $session->remove("panier");
+
+        return $this->redirectToRoute("cart_index");
+    }
+
+*/
 }

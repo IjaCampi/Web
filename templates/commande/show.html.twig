@@ -1,5 +1,15 @@
 {{ block("css", "baseback.html.twig") }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+<script>
+    function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById('invoice');
+        // Choose the element and save the PDF for our user.
+        html2pdf().from(element).save();
+    }
+</script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,17 +27,18 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
+    <!------------->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="callout callout-info">
                         <h5><i class="fas fa-info"></i> Note:</h5>
-                        This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
+                        This page has been enhanced for printing. Click the print button at the bottom of the invoice to
+                        test.
                     </div>
 
-
+                    <div id="invoice">
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                         <!-- title row -->
@@ -58,7 +69,7 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
-                                <b>Commande N# {{ commande.reference  }}</b><br>
+                                <b>Commande N# {{ commande.reference }}</b><br>
                                 <br>
                                 <b></b> <br>
 
@@ -72,11 +83,12 @@
                             <div class="col-12 table-responsive">
 
 
-                            <a class="btn btn-primary btn-sm" href="{{ path('app_lc_show_commande', {'id': commande.id}) }}" >
-                                <i class="fas fa-folder">
-                                </i>
-                                View ligne commande
-                            </a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{{ path('app_lc_show_commande', {'id': commande.id}) }}">
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    View ligne commande
+                                </a>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -92,7 +104,8 @@
                                 <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
 
                                 <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
+                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya
+                                    handango imeem
                                     plugg
                                     dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
                                 </p>
@@ -114,31 +127,35 @@
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
-
-                        <!-- this row will not appear when printing -->
-                        <div class="row no-print">
-                            <div class="col-12">
-                                <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                                <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                                    Payment
-                                </button>
-                                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                    <i class="fas fa-download"></i> Generate PDF
-                                </button>
-                            </div>
+                    </div>
+                    </div>
+                    <!-- this row will not appear when printing -->
+                    <div class="row no-print">
+                        <div class="col-12">
+                            <a href="l" rel="noopener" target="_blank" class="btn btn-default"><i
+                                        class="fas fa-print"></i> Print</a>
+                            <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>
+                                Submit
+                                Payment
+                            </button>
+                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                <i class="fas fa-download"></i> Generate PDF
+                            </button>
+                            <button onclick="generatePDF()">Download as PDF</button>
                         </div>
                     </div>
-                    <!-- /.invoice -->
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.invoice -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
 
-    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
+<a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
 
-    {{ include('commande/_delete_form.html.twig') }}
+{{ include('commande/_delete_form.html.twig') }}
 
