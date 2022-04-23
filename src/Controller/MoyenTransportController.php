@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/moyen/transport")
@@ -18,14 +19,20 @@ class MoyenTransportController extends AbstractController
     /**
      * @Route("/", name="app_moyen_transport_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
-        $moyenTransports = $entityManager
+        $donnees = $moyen_transports = $entityManager
             ->getRepository(MoyenTransport::class)
             ->findAll();
 
+        $moyen_transports = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3 // Nombre de résultats par page
+        );
+
         return $this->render('moyen_transport/index.html.twig', [
-            'moyen_transports' => $moyenTransports,
+            'moyen_transports' => $moyen_transports,
         ]);
     }
 
@@ -47,14 +54,20 @@ class MoyenTransportController extends AbstractController
     /**
      * @Route("/affichage", name="app_moyen_transport_affichage", methods={"GET"})
      */
-    public function affichage(EntityManagerInterface $entityManager): Response
+    public function affichage(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
-        $moyenTransports = $entityManager
+        $donnees = $moyen_transports = $entityManager
             ->getRepository(MoyenTransport::class)
             ->findAll();
 
+        $moyen_transports = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3 // Nombre de résultats par page
+        );
+
         return $this->render('moyen_transport/affichage.html.twig', [
-            'moyen_transports' => $moyenTransports,
+            'moyen_transports' => $moyen_transports,
         ]);
     }
 
