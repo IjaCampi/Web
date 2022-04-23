@@ -24,14 +24,14 @@ class ReservationMoyenTransport
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message="Date Debut doit être non vide")
      * @ORM\Column(name="date_debut", type="date", nullable=false)
      */
     private $dateDebut;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message="Date Fin doit être non vide")
      * @ORM\Column(name="date_fin", type="date", nullable=false)
      */
     private $dateFin;

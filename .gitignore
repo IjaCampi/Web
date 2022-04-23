@@ -24,3 +24,9 @@
 ###< symfony/web-server-bundle ###
 .idea
 .git
+<<<<<<< Updated upstream
+=======
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+>>>>>>> Stashed changes
