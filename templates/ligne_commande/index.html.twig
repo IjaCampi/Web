@@ -10,6 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Quantite</th>
+                <th>equipement</th>
+                <th>commande</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,10 +20,10 @@
             <tr>
                 <td>{{ ligne_commande.id }}</td>
                 <td>{{ ligne_commande.quantite }}</td>
-                <td>
-                    <a href="{{ path('app_ligne_commande_show', {'id': ligne_commande.id}) }}">show</a>
-                    <a href="{{ path('app_ligne_commande_edit', {'id': ligne_commande.id}) }}">edit</a>
-                </td>
+                <td>{{ ligne_commande.IdEquipement }}</td>
+                <td>{{ ligne_commande.idCommande }}</td>
+
+
             </tr>
         {% else %}
             <tr>
@@ -31,5 +33,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_ligne_commande_new') }}">Create new</a>
 {% endblock %}

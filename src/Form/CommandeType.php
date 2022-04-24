@@ -14,7 +14,6 @@ class CommandeType extends AbstractType
         $builder
             ->add('reference')
             ->add('montant')
-            ->add('date')
             ->add('adresse')
             ->add('idUtilisateur')
         ;

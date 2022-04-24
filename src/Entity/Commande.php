@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Commande
 {
+
     /**
      * @var int
      *
@@ -36,8 +37,6 @@ class Commande
 
     /**
      * @var \DateTime
-     * @Assert\NotBlank(message="ce champs est obligatoire")
-     *Assert\GreaterThanOrEqual("today")
      * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;

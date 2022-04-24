@@ -50,6 +50,7 @@ class CommandeController extends AbstractController
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
+        $commande->setDate(new \DateTime());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($commande);
@@ -89,6 +90,25 @@ class CommandeController extends AbstractController
         }
 
         return $this->render('commande/edit.html.twig', [
+            'commande' => $commande,
+            'form' => $form->createView(),
+        ]);
+    } /**
+     * @Route("/{id}/submit", name="app_commande_submit", methods={"GET", "POST"})
+     */
+    public function submit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    {
+        $commande->setAdresse("");
+        $form = $this->createForm(CommandeType::class, $commande);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_commande_show', ['id'=>$commande->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('commande/submit.html.twig', [
             'commande' => $commande,
             'form' => $form->createView(),
         ]);
