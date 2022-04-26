@@ -63,6 +63,8 @@ class ReservationMoyenTransport
      */
     private $idUser;
 
+    protected $captchaCode;
+
     public function getIdReservation(): ?int
     {
         return $this->idReservation;
@@ -126,6 +128,16 @@ class ReservationMoyenTransport
         $this->idUser = $idUser;
 
         return $this;
+    }
+
+    public function getCaptchaCode()
+    {
+      return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+      $this->captchaCode = $captchaCode;
     }
 
 

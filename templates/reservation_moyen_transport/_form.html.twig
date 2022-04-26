@@ -9,6 +9,9 @@
     <div class="col-md-4">{{ form_row(form.idTransport)}}</div>
     <div class="col-md-4">{{ form_row(form.idUser)}}</div>
 </div>
+<div class="row">
+<div class="col-md-4">{{ form_row(form.captchaCode) }}</div>
+</div>
 {{form_widget(form)}}
 <button class="btn btn-primary">{{button | default('Réserver')}}</button>
 {{ form_end(form) }}

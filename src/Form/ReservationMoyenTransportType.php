@@ -6,6 +6,8 @@ use App\Entity\ReservationMoyenTransport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
 
 class ReservationMoyenTransportType extends AbstractType
 {
@@ -17,6 +19,14 @@ class ReservationMoyenTransportType extends AbstractType
             ->add('place')
             ->add('idTransport')
             ->add('idUser')
+            ->add('captchaCode', CaptchaType::class, array(
+                'captchaConfig' => 'ExampleCaptchaUserRegistration',
+                'constraints' => [
+                    new ValidCaptcha([
+                        'message' => 'Invalid captcha, please try again',
+                    ]),
+                ],
+            ))
         ;
     }
 
