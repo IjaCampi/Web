@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/equipement")
  */
@@ -18,12 +18,16 @@ class EquipementController extends AbstractController
     /**
      * @Route("/", name="app_equipement_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
-        $equipements = $entityManager
+        $donnees = $entityManager
             ->getRepository(Equipement::class)
             ->findAll();
-
+        $equipements = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
         return $this->render('equipement/index.html.twig', [
             'equipements' => $equipements,
         ]);
