@@ -1,0 +1,38 @@
+{% extends 'back.html.twig' %}
+
+{% block title %} List Reclamations {% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Photo</th>
+                <th>Date</th>
+                <th>Idu</th>
+                <th>Etat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.description }}</td>
+                <td><img src="{{ asset('Upload/')}}{{ reclamation.photo }}" width="100"></td>
+                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                <td>{{ reclamation.idu.nom }}</td>
+                <td>{{ reclamation.etat }}</td>
+                <td>
+                    <a href="#" class="btn btn-primary">Traité</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
