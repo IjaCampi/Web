@@ -4,11 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 /**
  * @Route("/commande")
  */
@@ -139,5 +144,40 @@ class CommandeController extends AbstractController
         $entityManager->remove($commande);
         $entityManager->flush();
         return $this->redirectToRoute('app_commande_index_back', [], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * @Route("/print/{id} ", name="app_commande_topdf")
+     */
+    public function pdfAction ($id,CommandeRepository $commandeRepository)
+    {
+        $commande=$commandeRepository->find($id);
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('commande/show.html.twig', [
+            'commande' => $commande
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("file.pdf", [
+            "Attachment" => true
+        ]);
+        exit;
     }
 }

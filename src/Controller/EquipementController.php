@@ -26,7 +26,7 @@ class EquipementController extends AbstractController
         $equipements = $paginator->paginate(
             $donnees, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5 // Nombre de résultats par page
+            6 // Nombre de résultats par page
         );
         return $this->render('equipement/index.html.twig', [
             'equipements' => $equipements,

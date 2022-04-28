@@ -133,16 +133,16 @@
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
                         <div class="col-12">
-                            <a href="l" rel="noopener" target="_blank" class="btn btn-default"><i
+                            <a hidden href="{{ path('app_commande_topdf',{'id': commande.id}) }}" rel="noopener" target="_blank" class="btn btn-default"><i
                                         class="fas fa-print"></i> Print</a>
                             <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>
                                 Submit
                                 Payment
                             </button>
-                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                            <button onclick="generatePDF()" type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                                 <i class="fas fa-download"></i> Generate PDF
                             </button>
-                            <button onclick="generatePDF()">Download as PDF</button>
+                            <button >Download as PDF</button>
                         </div>
                     </div>
                 </div>
