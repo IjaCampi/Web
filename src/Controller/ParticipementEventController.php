@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\ParticipementEvent;
 use App\Entity\Utilisateurs;
 use App\Form\ParticipementEventType;
@@ -20,16 +21,20 @@ class ParticipementEventController extends AbstractController
     /**
      * @Route("/", name="app_participement_event_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager,Request $request, PaginatorInterface $paginator): Response
     {
         $evenements = $entityManager->getRepository(Evenement::class)->findAll();
         $utilisateurs = $entityManager->getRepository(Utilisateurs::class)->findAll();
-        $participementEvents = $entityManager
-            ->getRepository(ParticipementEvent::class)
+        $donnees = $this->getDoctrine() ->getRepository(ParticipementEvent::class)
             ->findAll();
+        $articles = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            1 // Nombre de résultats par page
+        );
 
         return $this->render('participement_event/index.html.twig', [
-            'participement_events' => $participementEvents,
+            'participement_events' => $articles,
             'evenements'=>$evenements,
             'utilisateurs'=>$utilisateurs,
         ]);
@@ -47,8 +52,9 @@ class ParticipementEventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($participementEvent);
             $entityManager->flush();
+            $this->addFlash('info','Added with success');
 
-            return $this->redirectToRoute('app_participement_event_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_evenement_indexfront', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('participement_event/new.html.twig', [
@@ -79,6 +85,7 @@ class ParticipementEventController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash('info','Edit successfully');
 
             return $this->redirectToRoute('app_participement_event_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -97,6 +104,7 @@ class ParticipementEventController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$participementEvent->getIdParticipement(), $request->request->get('_token'))) {
             $entityManager->remove($participementEvent);
             $entityManager->flush();
+            $this->addFlash('info','Deleted Successfully');
         }
 
         return $this->redirectToRoute('app_participement_event_index', [], Response::HTTP_SEE_OTHER);
