@@ -19,7 +19,6 @@
                       <th>Adresse</th>
                      <th>NumTel</th>
                      <th> login</th>
-                                          <th>Role</th>
                                           <th>actions</th>
 
                     </tr>
@@ -42,7 +41,7 @@
                 <td>  <a href="{{ path('app_utilisateurs_edit', {'idUser': utilisateur.idUser}) }}" class="btn btn-secondary">Edit</a>
 
                     <a href="{{ path('app_utilisateurs_show', {'idUser': utilisateur.idUser}) }}" class="btn btn-secondary" >Afficher</a>
-                    <form method="post" action="{{ path('app_utilisateurs_delete', {'idUser': utilisateur.idUser}) }}" style="display: inline-block" onsubmit="return confirm('Vous Êtes sûr de Supprimer cet utilisateur ')";>
+                    <form method="post" action="{{ path('app_utilisateurs_deletefront', {'idUser': utilisateur.idUser}) }}" style="display: inline-block" onsubmit="return confirm('Vous Êtes sûr de Supprimer cet utilisateur ')";>
                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.idUser) }}">
                        <button class="btn btn-danger">Delete</button>
                     </form>

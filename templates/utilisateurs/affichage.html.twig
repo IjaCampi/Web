@@ -16,7 +16,6 @@
                 <th>Adresse</th>
                 <th> numTel</th>
                 <th> login</th>
-                <th> role</th>
                 <th> actions</th>
             </tr>
         </thead>
@@ -29,18 +28,18 @@
                 <td>{{ utilisateur.DateNaissance }}</td>
                 <td>{{ utilisateur.Adresse }}</td>
                 <td>{{ utilisateur.numTel }}</td>
-                   <td>{{ utilisateur.login }}</td>
-                                      <td>{{ utilisateur.role }}</td>
+                 <td>{{ utilisateur.login }}</td>
 
 
 
                 <td>
-
-                    <a href="{{ path('app_utilisateurs_show', {'idUser': utilisateur.idUser}) }}" class="btn btn-secondary">Afficher</a>
-                    <form method="post" action="{{ path('app_utilisateurs_delete', {'idUser': utilisateur.idUser}) }}" style="display: inline-block" onsubmit="return confirm('Vous Êtes sûr de Supprimer cet utilisateur ');">
-                       <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.idUser) }}">
-                       <button class="btn btn-danger">Delete</button>
-                    </form>
+                <td>
+                    {% if utilisateur.isEnabled %}
+                    <a href="{{ path('user_bloque', {'id': utilisateur.idUser}) }}" class="btn btn-danger">Bloquer</a>
+                    {% else %}
+                    <a href="{{ path('user_debloque', {'id': utilisateur.idUser}) }}" class="btn btn-primary">Debloquer</a>
+                    {% endif %}
+                </td>
                 </td>
             </tr>
         {% else %}

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("/utilisateurs")
  */
@@ -39,6 +40,15 @@ class UtilisateursController extends AbstractController
 
         return $this->render('utilisateurs/indexfront.html.twig', [
             'utilisateurs' => $utilisateurs,
+        ]);
+    }
+
+    /**
+     * @Route("/frontAcceuil", name="acceuil", methods={"GET"})
+     */
+    public function front(EntityManagerInterface $entityManager): Response
+    {
+        return $this->render('front.html.twig', [
         ]);
     }
     
@@ -98,6 +108,44 @@ class UtilisateursController extends AbstractController
             'utilisateurs' => $utilisateurs,
         ]);
     }
+
+
+
+    /**
+     * @Route("/bloquer/{id}", name="user_bloque", methods={"GET","POST"})
+     */
+    public function bloquer(Request $request,  $id ): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $reclamation = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($id);
+        $reclamation->setIsActive(0);
+
+        $entityManager->flush();
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('app_utilisateurs_index');
+    }
+
+
+    /**
+     * @Route("/debloquer/{id}", name="user_debloque", methods={"GET","POST"})
+     */
+    public function debloquer(Request $request,  $id ): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $reclamation = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($id);
+        $reclamation->setIsActive(1);
+
+        $entityManager->flush();
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('app_utilisateurs_index');
+    }
+
 
 
     /**
@@ -161,9 +209,11 @@ class UtilisateursController extends AbstractController
 
         return $this->redirectToRoute('app_utilisateurs_index', [], Response::HTTP_SEE_OTHER);
     }
+    
     /**
-     * @Route("/{idUser}", name="app_utilisateurs_delete", methods={"POST"})
+     * @Route("/front/{idUser}", name="app_utilisateurs_deletefront", methods={"POST"})
      */
+    
     public function deletefront(Request $request, Utilisateurs $utilisateur, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$utilisateur->getIdUser(), $request->request->get('_token'))) {

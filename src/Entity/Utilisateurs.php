@@ -4,14 +4,22 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
 
 /**
+ * /**
+* @ORM\Entity(repositoryClass=UtilisateursRepository::class)
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
  * @ORM\Entity
+ * @UniqueEntity(fields={"login"}, message="There is already an account with this email")
  */
-class Utilisateurs   
+class Utilisateurs implements UserInterface
 {
     /**
      * @var int
@@ -31,18 +39,15 @@ class Utilisateurs
 
     /**
      * @var string
-     *@Assert\Type(type="string" )
-
-
+     *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      */
     private $prenom;
 
     /**
      * @var string
-     *  @assert\Date      
-
-     * @ORM\Column(name="date_naissance", type="string")
+     *@Assert\Date
+     * @ORM\Column(name="date_naissance", type="string", length=255, nullable=false)
      */
     private $dateNaissance;
 
@@ -54,33 +59,31 @@ class Utilisateurs
 
     /**
      * @var int
-     *
-           *   @Assert\Length(min=8)
+     
 
      * @ORM\Column(name="num_tel", type="integer", nullable=false)
-*/
+     *   @Assert\Length(min=8)
+
+     */
     private $numTel;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="login", type="string", length=255, nullable=false)
      */
     private $login;
 
     /**
-     * @var string
+     * @var string The hashed password
      *
      * @ORM\Column(name="mdp", type="string", length=255, nullable=false)
      */
-    private $mdp;
+    private $password;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=0, nullable=false)
+     * @ORM\Column(name="role",type="json")
      */
-    private $role;
+    private $roles = [];
 
     public function getIdUser(): ?int
     {
@@ -159,28 +162,89 @@ class Utilisateurs
         return $this;
     }
 
-    public function getMdp(): ?string
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return $this->mdp;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setMdp(string $mdp): self
+    public function setRoles(array $roles): self
     {
-        $this->mdp = $mdp;
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getRole(): ?string
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive($isActive): void
     {
-        return $this->role;
+        $this->isActive = $isActive;
     }
 
-    public function setRole(string $role): self
+    public function isEnabled()
     {
-        $this->role = $role;
+        return $this->isActive;
+    }
+
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->login;
     }
 
 

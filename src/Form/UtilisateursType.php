@@ -23,7 +23,6 @@ class UtilisateursType extends AbstractType
             ->add('mdp')
             ->add('role', ChoiceType::class, array(
                 'choices' => array(
-                    'ADMIN' => "admin",
                     'camper' => "camper",
                     'Agent_transport' => 'Agent_transport',
                     'Hebergeur' => 'Hebergeur',
