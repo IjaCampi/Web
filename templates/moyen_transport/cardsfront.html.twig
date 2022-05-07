@@ -5,136 +5,8 @@
 {% endblock %}
 
 {% block body %}
-<script>
-        // For Filters
-        document.addEventListener("DOMContentLoaded", function () {
-            var filterBtn = document.getElementById('filter-btn');
-            var btnTxt = document.getElementById('btn-txt');
-            var filterAngle = document.getElementById('filter-angle');
-
-            $('#filterbar').collapse(false);
-            var count = 0, count2 = 0;
-
-            function changeBtnTxt() {
-                $('#filterbar').collapse(true);
-                count++;
-                if (count % 2 != 0) {
-                    filterAngle.classList.add("fa-angle-right");
-                    btnTxt.innerText = "show filters"
-                    filterBtn.style.backgroundColor = "#36a31b";
-                } else {
-                    filterAngle.classList.remove("fa-angle-right")
-                    btnTxt.innerText = "hide filters"
-                    filterBtn.style.backgroundColor = "#ff935d";
-                }
-
-            }
-
-// For Applying Filters
-            $('#inner-box').collapse(false);
-            $('#inner-box2').collapse(false);
-
-// For changing NavBar-Toggler-Icon
-            var icon = document.getElementById('icon');
-
-            function chnageIcon() {
-                count2++;
-                if (count2 % 2 != 0) {
-                    icon.innerText = "";
-                    icon.innerHTML = '<span class="far fa-times-circle" style="width:100%"></span>';
-                    icon.style.paddingTop = "5px";
-                    icon.style.paddingBottom = "5px";
-                    icon.style.fontSize = "1.8rem";
-
-
-                } else {
-                    icon.innerText = "";
-                    icon.innerHTML = '<span class="navbar-toggler-icon"></span>';
-                    icon.style.paddingTop = "5px";
-                    icon.style.paddingBottom = "5px";
-                    icon.style.fontSize = "1.2rem";
-                }
-            }
-
-// Showing tooltip for AVAILABLE COLORS
-            $(function () {
-                $('[data-tooltip="tooltip"]').tooltip()
-            })
-
-// For Range Sliders
-            var inputLeft = document.getElementById("input-left");
-            var inputRight = document.getElementById("input-right");
-
-            var thumbLeft = document.querySelector(".slider > .thumb.left");
-            var thumbRight = document.querySelector(".slider > .thumb.right");
-            var range = document.querySelector(".slider > .range");
-
-            var amountLeft = document.getElementById('amount-left')
-            var amountRight = document.getElementById('amount-right')
-
-            function setLeftValue() {
-                var _this = inputLeft,
-                    min = parseInt(_this.min),
-                    max = parseInt(_this.max);
-
-                _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 1);
-
-                var percent = ((_this.value - min) / (max - min)) * 100;
-
-                thumbLeft.style.left = percent + "%";
-                range.style.left = percent + "%";
-                amountLeft.innerText = parseInt(percent * 100);
-            }
-
-            setLeftValue();
-
-            function setRightValue() {
-                var _this = inputRight,
-                    min = parseInt(_this.min),
-                    max = parseInt(_this.max);
-
-                _this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value) + 1);
-
-                var percent = ((_this.value - min) / (max - min)) * 100;
-
-                amountRight.innerText = parseInt(percent * 100);
-                thumbRight.style.right = (100 - percent) + "%";
-                range.style.right = (100 - percent) + "%";
-            }
-
-            setRightValue();
-
-            inputLeft.addEventListener("input", setLeftValue);
-            inputRight.addEventListener("input", setRightValue);
-
-            inputLeft.addEventListener("mouseover", function () {
-                thumbLeft.classList.add("hover");
-            });
-            inputLeft.addEventListener("mouseout", function () {
-                thumbLeft.classList.remove("hover");
-            });
-            inputLeft.addEventListener("mousedown", function () {
-                thumbLeft.classList.add("active");
-            });
-            inputLeft.addEventListener("mouseup", function () {
-                thumbLeft.classList.remove("active");
-            });
-
-            inputRight.addEventListener("mouseover", function () {
-                thumbRight.classList.add("hover");
-            });
-            inputRight.addEventListener("mouseout", function () {
-                thumbRight.classList.remove("hover");
-            });
-            inputRight.addEventListener("mousedown", function () {
-                thumbRight.classList.add("active");
-            });
-            inputRight.addEventListener("mouseup", function () {
-                thumbRight.classList.remove("active");
-            });
-        });
-    </script>
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
         * {
@@ -738,63 +610,126 @@
 <h2 style="color: steelblue; text-align: center"> Les Moyens Transport  </h2>
     </div>
     <br>
+</div>
+
+<input type="text" id="search" class="form-control"
+placeholder="Search"><br>
+<div>
+
+<div>
 
 
     <div class="container">
-        
-
         <div id="content" class="my-5">
 
             <div id="products">
-                <div class="row mx-0">
+                <div id="all" class="row mx-0">
                     {% for moyen_transport in moyen_transports %}
                         <div class="col-lg-4 col-md-6">
 
 
                             <div class="card d-flex flex-column align-items-center ">
-<<<<<<< Updated upstream
-                                <div class="product-name">{{ moyen_transport.type }}</div>
-                                <div class="card-img"><img
-                                            src=""
-                                            alt=""></div>
-                                <div class="card-body pt-5">
-
-                                    <div class="text-muted text-center mt-auto">Marque : {{ moyen_transport.marque }} de {{ moyen_transport.nbrPlace }} places </div>
-=======
-                                <div class="product-name">{{ moyen_transport.type }} de {{ moyen_transport.nbrPlace }} places </div>
+                                <div class="product-name">{{ moyen_transport.type }} - {{ moyen_transport.marque }}  </div>
                                 <div class="card-img"><img
                                             src="{{ asset('images/bus2.png') }}"
                                             alt="BUS"></div>
                                 <div class="card-body pt-5">
 
-                                    <div class="text-muted text-center mt-auto"> {{ moyen_transport.marque }}</div>
->>>>>>> Stashed changes
+                                    <div class="text-muted text-center mt-auto"> {{  moyen_transport.nbrPlace }} places</div>
                                     <div class="d-flex align-items-center justify-content-center colors my-2">
                                         <div class="btn-group" data-toggle="buttons" data-tooltip="tooltip"
                                              data-placement="right" title="choose color">
                                         </div>
                                     </div>
+                                    <div>
+                                    
+                                    </div>
                                     <div class="d-flex align-items-center price">
-<<<<<<< Updated upstream
-                                        <div class="font-weight-bold mr-5">{{ moyen_transport.frais }} D.T</div>
-=======
                                         <div class="font-weight-bold mr-5">{{ moyen_transport.frais }} DT</div>
->>>>>>> Stashed changes
-                                        <a href="{{ path('app_reservation_moyen_transport_new', {'id': moyen_transport.idTransport}) }}" class="btn btn-outline-primary">Réserver </a>
+                                        <a href="{{ path('app_moyen_transport_show_front', {'idTransport': moyen_transport.idTransport}) }}" class="btn btn-outline-primary"> Check </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                        
                     {% else %}
                         <tr>
                             <td colspan="8">no records found</td>
                         </tr>
-                    {% endfor %}
+            
 
-                </div>
+                    {% endfor %}
+                    
             </div>
+
+            
+
         </div>
+        
     </div>
     </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(moyen_transports) }}
+    </div>
+
+ <script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+
+<script>
+$(document).ready(function(){
+$("#search").keyup(function(){
+/* La variable value va prendre la valeur insérer dans le
+champ de texte
+afin d’effectuer la recherche */
+var value = $(this).val();
+console.log("value : ")
+/* Ajax est lancé lors du remplissage du champ texte dont
+l’id est
+« search » pour faire la recherche */
+$.ajax({
+/* l’url est une chaine de caractères contenant
+l’adresse où la requête est
+6
+envoyée */
+url : "{{ path('searchMoyen') }}",
+/* La méthode utilisée pour transférer les données est
+GET */
+type : 'GET',
+/*Ici search value va prendre la chaine entrée par un
+utilisateur dans la
+zone de recherche et sera placée après l’url */
+data: {
+'searchValue' : value
+},
+/*Cette fonction permet de vider le contenu du tableau
+pour recevoir le
+nouveau contenu*/
+success : function(retour){
+if(retour){
+$('#t #searchtab').empty();
+$.each(JSON.parse(retour), function(i, obj) {
+$('#t tbody#all').hide();
+$('#t tbody#searchtab').append('<tr><td>
+$('#t tbody#searchtab').append('<tr><td>
+'+obj.id+'</td><td> '+obj.type+' </td><td>'+obj.idTransport+ '</td><td><a
+});
+}
+else
+{
+$('#t tbody#all').show();
+$('#t tbody#searchtab').empty();
+$('#t tbody#searchtab').fadeIn('fast');
+}
+},
+});
+return false;
+});
+});
+</script>
+
+
+    
 {% endblock %}
