@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 /**
  * @Route("/equipement")
  */
@@ -123,5 +125,64 @@ class EquipementController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('app_equipement_index_back', [], Response::HTTP_SEE_OTHER);
     }
+    /**
+     * @Route("/json/new", name="app_equipement_nj", methods={"GET", "POST"})
+     */
+    public function newJ(Request $request, EntityManagerInterface $entityManager,NormalizerInterface $normalizer): Response
+    {
+        $equipement = new Equipement();
+     // $equipement->setIdUtilisateur("1");
+      $equipement->setNom($request->get('nom'));
+      $equipement->setCategorie($request->get('categorie'));
+      $equipement->setDescription($request->get('description'));
+      $equipement->setMarque($request->get('marque'));
+      $equipement->setPhoto($request->get('photo'));
+      $equipement->setPrix($request->get('prix'));
+      $entityManager->persist($equipement);
+      $entityManager->flush();
+      $jsonContent=$normalizer->normalize($equipement,'json',['groups'=>'post::read']);
+        return new Response(json_encode($jsonContent));
+
+
+    }
+    /**
+     * @Route("/json/show", name="app_equipement_JSON_show")
+     */
+    public function indexJson(EntityManagerInterface $entityManager,NormalizerInterface $normalizer): Response
+    {
+        $equipement= $entityManager
+            ->getRepository(Equipement::class)
+            ->findAll();
+        var_dump($equipement);
+        $jsonContent = $normalizer->normalize($equipement,'json',['groups'=>'post::read']);
+        var_dump($jsonContent);
+        return new Response(json_encode($jsonContent));
+    }
+ /**
+     * @Route("/json/show/{id}", name="app_equipement_JSON")
+     */
+    public function Jsonshowbyid(EntityManagerInterface $entityManager,NormalizerInterface $normalizer,$id): Response
+    {
+        $equipement= $entityManager
+            ->getRepository(Equipement::class)
+            ->findOneByid($id);
+        var_dump($equipement);
+        $jsonContent = $normalizer->normalize($equipement,'json',['groups'=>'post::read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/json/delete/{id}", name="app_JSON_delete")
+     */
+    public function deleteq(Request $request,NormalizerInterface $normalizer,$id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $equipement = $entityManager->getRepository(Equipement::class)->find($id);
+        $entityManager->remove($equipement);
+        $entityManager->flush();
+        $jsonContent = $normalizer->normalize($equipement,'json',['groups'=>'maisongrp']);
+        return new Response("Information deleted successfully".json_encode($jsonContent));
+    }
+
 }
 

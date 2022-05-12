@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Equipement
  *
@@ -15,7 +15,7 @@ class Equipement
 {
     /**
      * @var int
-     *
+     *@Groups ("post:read")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -33,6 +33,7 @@ class Equipement
      *      minMessage = "le nom doit avoir {{ limit }} au caractère minimum",
      *      maxMessage = "le nom doit avoir {{ limit }} au caractère maximum"
      * )
+     * @Groups ("post:read")
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
@@ -46,12 +47,14 @@ class Equipement
      *      minMessage = "la description doit avoir {{ limit }}  caractère au minimum",
      *      maxMessage = "la description doit avoir {{ limit }}  caractère au maximum"
      * )
+     * @Groups ("post:read")
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
     /**
      * @var string
+     * @Groups ("post:read")
      * @Assert\NotBlank(message="ce champs est obligatoire")
      * @ORM\Column(name="photo", type="string", length=255, nullable=false)
      */
@@ -59,6 +62,7 @@ class Equipement
 
     /**
      * @var string
+     * @Groups ("post:read")
      *@Assert\NotBlank(message="ce champs est obligatoire")
      * @Assert\Length(
      *      min = 10,
@@ -72,6 +76,7 @@ class Equipement
 
     /**
      * @var string
+     * @Groups ("post:read")
      * @Assert\NotBlank(message="ce champs est obligatoire")
      * @Assert\Length(
      *      min = 10,
@@ -85,6 +90,7 @@ class Equipement
 
     /**
      * @var float
+     * @Groups ("post:read")
      * @Assert\Type(message="Entrez un prix valide", type="float")
      * @Assert\NotBlank(message="ce champs est obligatoire")
      * @Assert\GreaterThanOrEqual(message="le prix doit être supérieure a zéro!", value = 0)
@@ -94,7 +100,7 @@ class Equipement
 
     /**
      * @var \Evenement
-     *
+     *@Groups ("post:read")
      * @ORM\ManyToOne(targetEntity="Evenement")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_evenement", referencedColumnName="id_Event")
@@ -104,7 +110,7 @@ class Equipement
 
     /**
      * @var \Utilisateurs
-     *
+     *@Groups ("post:read")
      * @ORM\ManyToOne(targetEntity="Utilisateurs")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id_user")

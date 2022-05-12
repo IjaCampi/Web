@@ -59,8 +59,17 @@ class EquipementRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    } */
+    public function findOneByid($value): ?Equipement
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Equipement
