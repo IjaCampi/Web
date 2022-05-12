@@ -12,6 +12,7 @@ return [
         '/reclamation' => [[['_route' => 'app_reclamation_index', '_controller' => 'App\\Controller\\ReclamationController::index'], null, ['GET' => 0], null, true, false, null]],
         '/reclamation/reclamationUser' => [[['_route' => 'mes_reclamation_user', '_controller' => 'App\\Controller\\ReclamationController::reclamationUser'], null, ['GET' => 0], null, false, false, null]],
         '/reclamation/front' => [[['_route' => 'front', '_controller' => 'App\\Controller\\ReclamationController::front'], null, ['GET' => 0], null, false, false, null]],
+        '/reclamation/sos' => [[['_route' => 'sos', '_controller' => 'App\\Controller\\ReclamationController::sos'], null, null, null, false, false, null]],
         '/reclamation/new' => [[['_route' => 'app_reclamation_new', '_controller' => 'App\\Controller\\ReclamationController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
     [ // $regexpList
@@ -27,6 +28,7 @@ return [
                         .'|/edit(*:134)'
                     .')'
                     .'|delete/([^/]++)(*:158)'
+                    .'|traiter/([^/]++)(*:182)'
                 .')'
             .')/?$}sD',
     ],
@@ -36,8 +38,9 @@ return [
         86 => [[['_route' => 'avis_delete', '_controller' => 'App\\Controller\\AvisController::delete'], ['id'], null, null, false, true, null]],
         121 => [[['_route' => 'app_reclamation_show', '_controller' => 'App\\Controller\\ReclamationController::show'], ['idR'], ['GET' => 0], null, false, true, null]],
         134 => [[['_route' => 'app_reclamation_edit', '_controller' => 'App\\Controller\\ReclamationController::edit'], ['idR'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        158 => [
-            [['_route' => 'reclamation_delete', '_controller' => 'App\\Controller\\ReclamationController::delete'], ['id'], null, null, false, true, null],
+        158 => [[['_route' => 'reclamation_delete', '_controller' => 'App\\Controller\\ReclamationController::delete'], ['id'], null, null, false, true, null]],
+        182 => [
+            [['_route' => 'reclamation_traiter', '_controller' => 'App\\Controller\\ReclamationController::traiter'], ['id'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

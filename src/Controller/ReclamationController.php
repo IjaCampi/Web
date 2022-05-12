@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/reclamation")
@@ -19,12 +20,17 @@ class ReclamationController extends AbstractController
     /**
      * @Route("/", name="app_reclamation_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager,Request $request, PaginatorInterface $paginator): Response
     {
-        $reclamations = $entityManager
+        $donnees= $entityManager
             ->getRepository(Reclamation::class)
             ->findAll();
 
+        $reclamations = $paginator->paginate(
+                $donnees, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                2 // Nombre de résultats par page
+            );
         return $this->render('reclamation/index.html.twig', [
             'reclamations' => $reclamations,
         ]);
@@ -57,6 +63,41 @@ class ReclamationController extends AbstractController
         return $this->render('front.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/sos", name="sos")
+     */
+    public function sos(EntityManagerInterface $entityManager, \Swift_Mailer $mailer): Response
+    {
+
+        $user = $entityManager
+        ->getRepository(User::class)
+        ->find(1);
+
+        $message = (new \Swift_Message('SOS Urgent'))
+        ->setFrom('nermin.fattouch@esprit.tn')
+        ->setTo($user->getEmail())
+        ->setBody(
+            $this->renderView(
+                'reclamation/emailSos.html.twig',
+                ['user' => $user]
+            ),
+            'text/html'
+        )
+
+        // you can remove the following code if you don't define a text version for your emails
+        ->addPart(
+            $this->renderView(
+                // templates/emails/registration.txt.twig
+                'reclamation/emailSos.html.twig',
+                ['user' => $user]
+            ),
+            'text/plain'
+        );
+    $mailer->send($message);
+    return $this->redirectToRoute('mes_reclamation_user', [], Response::HTTP_SEE_OTHER);
+    }
+
 
     /**
      * @Route("/new", name="app_reclamation_new", methods={"GET", "POST"})
@@ -130,5 +171,41 @@ class ReclamationController extends AbstractController
         $em->remove($categorie);
         $em->flush();
         return $this->redirectToRoute('mes_reclamation_user');
+    }
+
+
+    /**
+     * @Route("/traiter/{id}", name="reclamation_traiter")
+     */
+    public function traiter($id, \Swift_Mailer $mailer): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rec = $em->getRepository(Reclamation::class)->find($id);
+        $rec->setEtat("traiter");
+
+        $message = (new \Swift_Message('Reclamation Traiter'))
+        ->setFrom('nermin.fattouch@esprit.tn')
+        ->setTo($rec->getIdU()->getEmail())
+        ->setBody(
+            $this->renderView(
+                'reclamation/emailTraiter.html.twig',
+                ['reclamation' => $rec]
+            ),
+            'text/html'
+        )
+
+        // you can remove the following code if you don't define a text version for your emails
+        ->addPart(
+            $this->renderView(
+                // templates/emails/registration.txt.twig
+                'reclamation/emailTraiter.html.twig',
+                ['reclamation' => $rec]
+            ),
+            'text/plain'
+        );
+       $mailer->send($message);
+        $em->persist($rec);
+        $em->flush();
+        return $this->redirectToRoute('app_reclamation_index');
     }
 }

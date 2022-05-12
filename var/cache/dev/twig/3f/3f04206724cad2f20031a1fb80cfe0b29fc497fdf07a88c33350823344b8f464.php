@@ -56,7 +56,7 @@ class __TwigTemplate_f352a100a66484413f380ac7fbdf3ad6244a5ba17988895daa35fb3df8b
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        echo " List ReclamationReclamations ";
+        echo " List Reclamations ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -158,7 +158,7 @@ class __TwigTemplate_f352a100a66484413f380ac7fbdf3ad6244a5ba17988895daa35fb3df8b
     {
         return new Source("{% extends 'back.html.twig' %}
 
-{% block title %} List ReclamationReclamations {% endblock %}
+{% block title %} List Reclamations {% endblock %}
 
 {% block body %}
 
@@ -194,6 +194,6 @@ class __TwigTemplate_f352a100a66484413f380ac7fbdf3ad6244a5ba17988895daa35fb3df8b
     </table>
 
 {% endblock %}
-", "reclamation/index.html.twig", "C:\\Users\\Rzouga\\Desktop\\Nerr\\Campping\\templates\\reclamation\\index.html.twig");
+", "reclamation/index.html.twig", "C:\\Users\\21627\\OneDrive\\Bureau\\Nerrr\\Campping\\templates\\reclamation\\index.html.twig");
     }
 }

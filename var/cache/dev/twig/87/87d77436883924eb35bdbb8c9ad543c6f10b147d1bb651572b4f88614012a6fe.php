@@ -170,7 +170,10 @@ class __TwigTemplate_c179068405644151bf73d37623f2eb9f695d587c12a6a43f300a5c819d3
                                 </ul>
                             </div>
                             <div class=\"book_btn d-none d-lg-block\">
-                                <a class=\"popup-with-form\" href=\"#test-form\">Book A Room</a>
+                                <a class=\"\" href=\"";
+        // line 93
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("sos");
+        echo "\">SOS</a>
                             </div>
                         </div>
                     </div>
@@ -639,7 +642,7 @@ class __TwigTemplate_c179068405644151bf73d37623f2eb9f695d587c12a6a43f300a5c819d3
 
     public function getDebugInfo()
     {
-        return array (  619 => 177,  607 => 172,  578 => 406,  573 => 404,  569 => 403,  565 => 402,  561 => 401,  557 => 400,  551 => 397,  547 => 396,  543 => 395,  539 => 394,  535 => 393,  531 => 392,  527 => 391,  523 => 390,  519 => 389,  515 => 388,  511 => 387,  507 => 386,  503 => 385,  499 => 384,  495 => 383,  491 => 382,  487 => 381,  483 => 380,  331 => 231,  320 => 223,  309 => 215,  298 => 207,  287 => 199,  264 => 178,  262 => 177,  254 => 172,  146 => 67,  102 => 26,  98 => 25,  94 => 24,  90 => 23,  86 => 22,  82 => 21,  78 => 20,  74 => 19,  70 => 18,  66 => 17,  62 => 16,  55 => 12,  42 => 1,);
+        return array (  622 => 177,  610 => 172,  581 => 406,  576 => 404,  572 => 403,  568 => 402,  564 => 401,  560 => 400,  554 => 397,  550 => 396,  546 => 395,  542 => 394,  538 => 393,  534 => 392,  530 => 391,  526 => 390,  522 => 389,  518 => 388,  514 => 387,  510 => 386,  506 => 385,  502 => 384,  498 => 383,  494 => 382,  490 => 381,  486 => 380,  334 => 231,  323 => 223,  312 => 215,  301 => 207,  290 => 199,  267 => 178,  265 => 177,  257 => 172,  175 => 93,  146 => 67,  102 => 26,  98 => 25,  94 => 24,  90 => 23,  86 => 22,  82 => 21,  78 => 20,  74 => 19,  70 => 18,  66 => 17,  62 => 16,  55 => 12,  42 => 1,);
     }
 
     public function getSourceContext()
@@ -736,7 +739,7 @@ class __TwigTemplate_c179068405644151bf73d37623f2eb9f695d587c12a6a43f300a5c819d3
                                 </ul>
                             </div>
                             <div class=\"book_btn d-none d-lg-block\">
-                                <a class=\"popup-with-form\" href=\"#test-form\">Book A Room</a>
+                                <a class=\"\" href=\"{{ path('sos') }}\">SOS</a>
                             </div>
                         </div>
                     </div>
@@ -1070,6 +1073,6 @@ class __TwigTemplate_c179068405644151bf73d37623f2eb9f695d587c12a6a43f300a5c819d3
 
 </body>
 
-</html>", "front.html.twig", "C:\\Users\\Rzouga\\Desktop\\Nerr\\Campping\\templates\\front.html.twig");
+</html>", "front.html.twig", "C:\\Users\\21627\\OneDrive\\Bureau\\Nerrr\\Campping\\templates\\front.html.twig");
     }
 }

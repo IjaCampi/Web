@@ -24,7 +24,10 @@
                 <td>{{ reclamation.idu.nom }}</td>
                 <td>{{ reclamation.etat }}</td>
                 <td>
-                    <a href="#" class="btn btn-primary">Traité</a>
+                   {% if (reclamation.etat == "traiter") %}
+                   {% else %}
+                    <a href="{{ path('reclamation_traiter', {'id': reclamation.idR}) }}" class="btn btn-primary">Traité</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +35,8 @@
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+            {{ knp_pagination_render(reclamations) }}
+
         </tbody>
     </table>
 

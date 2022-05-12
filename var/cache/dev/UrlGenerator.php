@@ -10,8 +10,10 @@ return [
     'app_reclamation_index' => [[], ['_controller' => 'App\\Controller\\ReclamationController::index'], [], [['text', '/reclamation/']], [], []],
     'mes_reclamation_user' => [[], ['_controller' => 'App\\Controller\\ReclamationController::reclamationUser'], [], [['text', '/reclamation/reclamationUser']], [], []],
     'front' => [[], ['_controller' => 'App\\Controller\\ReclamationController::front'], [], [['text', '/reclamation/front']], [], []],
+    'sos' => [[], ['_controller' => 'App\\Controller\\ReclamationController::sos'], [], [['text', '/reclamation/sos']], [], []],
     'app_reclamation_new' => [[], ['_controller' => 'App\\Controller\\ReclamationController::new'], [], [['text', '/reclamation/new']], [], []],
     'app_reclamation_show' => [['idR'], ['_controller' => 'App\\Controller\\ReclamationController::show'], [], [['variable', '/', '[^/]++', 'idR'], ['text', '/reclamation']], [], []],
     'app_reclamation_edit' => [['idR'], ['_controller' => 'App\\Controller\\ReclamationController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'idR'], ['text', '/reclamation']], [], []],
     'reclamation_delete' => [['id'], ['_controller' => 'App\\Controller\\ReclamationController::delete'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/reclamation/delete']], [], []],
+    'reclamation_traiter' => [['id'], ['_controller' => 'App\\Controller\\ReclamationController::traiter'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/reclamation/traiter']], [], []],
 ];

@@ -56,7 +56,7 @@ class __TwigTemplate_1b97df861d99c1302936604dec1d6c3ed88c04192d1619274670b7f7a7a
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        echo " Modefier Reclamation ";
+        echo " Modifier Reclamation ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -137,7 +137,7 @@ class __TwigTemplate_1b97df861d99c1302936604dec1d6c3ed88c04192d1619274670b7f7a7a
     {
         return new Source("{% extends 'front.html.twig' %}
 
-{% block title %} Modefier Reclamation {% endblock %}
+{% block title %} Modifier Reclamation {% endblock %}
 
 {% block body %}
 
@@ -165,6 +165,6 @@ class __TwigTemplate_1b97df861d99c1302936604dec1d6c3ed88c04192d1619274670b7f7a7a
         {{ form_end(form) }}
     </div>
 {% endblock %}
-", "reclamation/edit.html.twig", "C:\\Users\\Rzouga\\Desktop\\Nerr\\Campping\\templates\\reclamation\\edit.html.twig");
+", "reclamation/edit.html.twig", "C:\\Users\\21627\\OneDrive\\Bureau\\Nerrr\\Campping\\templates\\reclamation\\edit.html.twig");
     }
 }

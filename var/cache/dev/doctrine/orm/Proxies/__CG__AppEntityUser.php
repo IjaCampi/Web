@@ -67,10 +67,10 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\User' . "\0" . 'iduser', '' . "\0" . 'App\\Entity\\User' . "\0" . 'nom'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\User' . "\0" . 'iduser', '' . "\0" . 'App\\Entity\\User' . "\0" . 'nom', '' . "\0" . 'App\\Entity\\User' . "\0" . 'email'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\User' . "\0" . 'iduser', '' . "\0" . 'App\\Entity\\User' . "\0" . 'nom'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\User' . "\0" . 'iduser', '' . "\0" . 'App\\Entity\\User' . "\0" . 'nom', '' . "\0" . 'App\\Entity\\User' . "\0" . 'email'];
     }
 
     /**
@@ -212,6 +212,28 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNom', [$nom]);
 
         return parent::setNom($nom);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEmail(): ?string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', []);
+
+        return parent::getEmail();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setEmail(string $email): \App\Entity\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', [$email]);
+
+        return parent::setEmail($email);
     }
 
 }

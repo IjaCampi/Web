@@ -28,6 +28,13 @@ class User
      */
     private $nom;
 
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+
     public function getIduser(): ?int
     {
         return $this->iduser;
@@ -44,6 +51,24 @@ class User
 
         return $this;
     }
+
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+
+
+
+
 
 
 }
