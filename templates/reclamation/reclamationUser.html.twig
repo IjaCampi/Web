@@ -1,0 +1,24 @@
+{% extends 'front.html.twig' %}
+
+{% block title %} Mes Reclamation {% endblock %}
+
+{% block body %}
+
+    <div class="col-xl-4 col-md-4">
+        {% for r in reclamations %}
+        <div class="single_offers">
+            <div class="about_thumb">
+                <img src="{{ asset('Upload/')}}{{ r.photo }}" alt="">
+            </div>
+            <ul>
+                <li>Description : {{ r.description }}</li>
+                <li>Date : {{ r.date ? r.date|date('Y-m-d') : '' }}</li>
+                <li>Etat : {{ r.etat }}</li>
+            </ul>
+            <a href="{{ path('reclamation_delete', {'id': r.idR}) }}" class="btn btn-danger">Delete</a>
+            <a href="{{ path('app_reclamation_edit', {'idR': r.idR}) }}" class="btn btn-secondary">edit</a><br><br><br><br>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
