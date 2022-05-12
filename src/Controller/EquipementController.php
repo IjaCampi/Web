@@ -153,9 +153,8 @@ class EquipementController extends AbstractController
         $equipement= $entityManager
             ->getRepository(Equipement::class)
             ->findAll();
-        var_dump($equipement);
         $jsonContent = $normalizer->normalize($equipement,'json',['groups'=>'post::read']);
-        var_dump($jsonContent);
+
         return new Response(json_encode($jsonContent));
     }
  /**
@@ -166,7 +165,7 @@ class EquipementController extends AbstractController
         $equipement= $entityManager
             ->getRepository(Equipement::class)
             ->findOneByid($id);
-        var_dump($equipement);
+
         $jsonContent = $normalizer->normalize($equipement,'json',['groups'=>'post::read']);
         return new Response(json_encode($jsonContent));
     }
